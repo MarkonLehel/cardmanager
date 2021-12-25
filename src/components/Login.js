@@ -4,8 +4,13 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import { NavLink } from 'react-router-dom';
+import { useContext } from 'react';
+import { DataContext } from './DataContext';
 
-const Login = ({setLoggedInUser}) => {
+
+
+const Login = () => {
+  let context = useContext(DataContext);
 
     const handleLoginSubmit = (event) => {
         event.preventDefault();
