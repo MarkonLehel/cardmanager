@@ -24,7 +24,7 @@ const Cards = () => {
 
 
     return (
-        <div className='account-listing'>
+        <div className='card-listing'>
             <h2>Your current cards:</h2>
             <div style={{ height: 600, width: '100%' }}>
             <DataGrid
