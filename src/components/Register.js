@@ -12,7 +12,6 @@ const Register = () => {
 
     const handleRegisterResponse = (resp,data ) => {
       if (resp.status === 201) {
-      console.log(data)
       context.setLoggedInUser({username: data.email, id: data.id})
     }
       console.log(resp.status)
