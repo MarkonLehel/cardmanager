@@ -2,7 +2,6 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { DataContext } from './DataContext';
@@ -10,15 +9,34 @@ import { DataContext } from './DataContext';
 
 
 const Login = () => {
+
+  let loginEmail;
   let context = useContext(DataContext);
+    const handleLoginResponse = (resp, returnData) => {
+      console.log("Received")
+    console.log(returnData)
+      if(resp.status == 200){
+        context.setLoggedInUser({username: loginEmail, id: returnData})
+      } else if (resp.status == 400) {
+
+      } else {
+        //404
+      }
+    } 
 
     const handleLoginSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-          email: data.get('email'),
-          password: data.get('password'),
-        });
+        console.log("Sending")
+        loginEmail = data.get('email')
+        fetch(context.requestUrl + "/Login", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({email: data.get('email'), password: data.get('password')})
+        }).then((resp) => resp.json()
+        .then( (data) => handleLoginResponse(resp, data)));
       };
 
 

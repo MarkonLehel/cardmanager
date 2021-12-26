@@ -20,7 +20,7 @@ const NavBar = () => {
                     <Button color="secondary" size="medium" variant="contained" component={Link} to="/home/cards" sx={{ mr: 3 }}>Cards</Button>
                     <Button color="secondary" size="medium" variant="contained" component={Link} to="/home/transactions" sx={{ mr: 3 }}>Transactions</Button>
                     <Button color="secondary" size="medium" variant="contained" component={Link} to="/home/profile" sx={{ mr: 3 }}>Profile</Button>
-                    <Typography noWrap={true} sx={{ marginLeft: "auto"}}>Logged in as {context.loggedInUser}</Typography>
+                    <Typography noWrap={true} sx={{ marginLeft: "auto"}}>Logged in as {context.loggedInUser.username}</Typography>
                     <Tooltip title="Logout" arrow>
                         <IconButton onClick={ () => {context.setLoggedInUser(null); console.log("Set user to null")}} size="medium" color="inherit" sx={{ ml: 1 }}>
                                 <LogoutIcon />
