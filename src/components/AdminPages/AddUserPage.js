@@ -11,7 +11,6 @@ const AddUserPage = () => {
   const [success, setSuccess] = useState(false)
 
     const handleRegisterResponse = (resp ) => {
-        console.log(resp.status)
       if (resp.status === 201) {
         setSuccess(true);
     } else{
