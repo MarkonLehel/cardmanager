@@ -18,10 +18,17 @@ const PaymentType = ["Currency", "Forint", "Credit"]
 
     let cardsToDisplay = [];
     cards.forEach(card => {
+        console.log(card)
+        let type;
+        if(PaymentType[card.cardType] === "Currency"){
+            type = PaymentType[card.cardType].concat(card.currencyType != null? ` (${card.currencyType == "EUR" ? "€": "$"})`:"")
+        } else {
+            type = PaymentType[card.cardType]
+        }
         cardsToDisplay.push({id: card.cardID, cardNumber:card.cardNumber,
             validity: `${card.valid? "Valid" : "Invalid"}`,
             state: CardStatus[card.state],
-            type: PaymentType[card.cardType].concat(card.currencyType != null? ` (${card.currencyType == "EUR" ? "€": "$"})`:"")})
+            type: type})
     });
 
 
