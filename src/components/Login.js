@@ -2,23 +2,38 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { DataContext } from './DataContext';
+import ShieldIcon from '@mui/icons-material/Shield';
 
 
+const Login = ({adminLogin}) => {
 
-const Login = () => {
+  let loginEmail;
   let context = useContext(DataContext);
+    const handleLoginResponse = (resp, returnData) => {
+      if(resp.status == 200){
+        context.setLoggedInUser({username: loginEmail, id: returnData, adminLogin: adminLogin})
+      } else if (resp.status == 400) {
+
+      } else {
+        //404
+      }
+    } 
 
     const handleLoginSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-          email: data.get('email'),
-          password: data.get('password'),
-        });
+        loginEmail = data.get('email')
+        fetch(context.requestUrl + "/Login", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({email: data.get('email'), password: data.get('password'), adminLogin: adminLogin})
+        }).then((resp) => resp.json()
+        .then( (data) => handleLoginResponse(resp, data)));
       };
 
 
@@ -58,7 +73,7 @@ const Login = () => {
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
-                    > Sign In </Button>
+                    > Sign In {adminLogin? <ShieldIcon sx={{ ml: 1 }}/>: ""}</Button>
                     <NavLink to="/register">
                          {"Don't have an account? Sign Up"}
                     </NavLink>

@@ -1,9 +1,12 @@
 import { DataGrid } from '@mui/x-data-grid';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useContext } from 'react';
+import { DataContext } from '../DataContext';
 
 const Transactions = () => {
-    const [transactions, updateTransactions] = useState([{ id: 1, date: "2011-11-1", amount: 100, type: "Successful", cardNumber:"1234567891234567", vendor:"Yeetus Corp" },])
+    const [transactions, updateTransactions] = useState([])
 
+    let context = useContext(DataContext);
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 70, type: 'number' },
@@ -14,9 +17,15 @@ const Transactions = () => {
         { field: 'vendor', headerName: 'Vendor', width: 260, type: 'string' }]
 
 
+        useEffect(async () =>{
+            fetch(context.requestUrl + `/Accounts/${context.loggedInUser.id}`)
+            .then((result) => result.json())
+            .then((data) => updateTransactions(data))}
+        , [])
+
     return (
         <div className='transaction-listing'>
-            <h2>Your current accounts:</h2>
+            <h2>Your transactions:</h2>
             <div style={{ height: 600, width: '100%' }}>
             <DataGrid
                 rows={transactions}
