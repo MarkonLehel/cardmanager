@@ -14,6 +14,8 @@ import Users from "./AdminPages/Users";
 import AddUserPage from "./AdminPages/AddUserPage";
 import AddCardPage from "./AdminPages/AddCardPage";
 import CardManager from "./AdminPages/CardManager";
+import ChangePassword from "./Pages/ChangePassword";
+import ChangeName from "./Pages/ChangeName";
 
 
 const Mainpage = () => {
@@ -35,6 +37,8 @@ let context = useContext(DataContext);
                     <Route exact path='/cards' element={<Cards />} />
                     <Route exact path='/transactions' element={<Transactions />} />
                     <Route exact path='/profile' element={<Profile />} />
+                    <Route exact path='/changePassword' element={<ChangePassword />} />
+                    <Route exact path='/changeName' element={<ChangeName />} />
                 </Routes>
                 }
         </div>

@@ -38,7 +38,7 @@ const Register = () => {
 
 
     return ( 
-        <div className="login-page">
+        <div className="registration-page">
 
             <Container sx={{
             marginTop: 10,
@@ -46,7 +46,7 @@ const Register = () => {
             flexDirection: 'column',
             alignItems: 'center',
           }}>
-              <h1 className='signin-text'>Registration</h1>
+              <h1 className='registration-text'>Registration</h1>
                 <Box component="form" onSubmit={handleRegister} noValidate sx={{ mt: 1 }}>
                 <TextField
                     margin="normal"
