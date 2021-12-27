@@ -7,13 +7,13 @@ import { DataContext } from '../components/DataContext';
 import { useContext } from "react";
 
 import {
-    BrowserRouter as Router,
     Routes,
     Route
   } from "react-router-dom";
 import Users from "./AdminPages/Users";
-import CardManager from "./AdminPages/CardManager";
 import AddUserPage from "./AdminPages/AddUserPage";
+import AddCardPage from "./AdminPages/AddCardPage";
+import CardManager from "./AdminPages/CardManager";
 
 
 const Mainpage = () => {
@@ -23,12 +23,12 @@ let context = useContext(DataContext);
         <div className="layout-page">
             <NavBar/>
             {context.loggedInUser.adminLogin? 
-            <Routes>
-            <Route exact path='/users' element={<Users />} />
-            <Route exact path='/addUser' element={<AddUserPage />} />
-            <Route exact path='/addCard' element={<AddCardPage />} />
-            <Route exact path='/cardManager' element={<CardManager />} />
-        </Routes>
+                <Routes>
+                    <Route exact path='/users' element={<Users />} />
+                    <Route exact path='/addUser' element={<AddUserPage />} />
+                    <Route exact path='/addCard/:userID' element={<AddCardPage />} />
+                    <Route exact path='/cardManager' element={<CardManager />} />
+                </Routes>
             :
                 <Routes>
                     <Route exact path='/accounts' element={<Accounts />} />

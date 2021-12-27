@@ -21,7 +21,7 @@ const NavBar = () => {
                     {context.loggedInUser.adminLogin? 
                     <slot>
                     <Button color="secondary" size="medium" variant="contained" component={NavLink} to="/admin/users" sx={{ mr: 3, minWidth:120 }}>Users</Button>
-                    <Button color="secondary" size="medium" variant="contained" component={NavLink} to="/admin/cards" sx={{ mr: 3, minWidth:120}}>Cards</Button>
+                    <Button color="secondary" size="medium" variant="contained" component={NavLink} to="/admin/cardManager" sx={{ mr: 3, minWidth:120}}>Cards</Button>
                     </slot>  
                     : 
                     <slot>
