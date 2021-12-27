@@ -4,7 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import LogoutIcon from '@mui/icons-material/Logout';
 import IconButton from '@mui/material/IconButton';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { DataContext } from './DataContext';
 import ShieldIcon from '@mui/icons-material/Shield';

@@ -1,4 +1,4 @@
-import { Avatar, Button, Container, Stack } from '@mui/material';
+import { Button, Container } from '@mui/material';
 import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { DataContext } from '../DataContext';
