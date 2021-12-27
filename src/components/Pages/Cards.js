@@ -8,12 +8,16 @@ const Cards = () => {
 
     let context = useContext(DataContext);
 
+    const CardStatus = ["Active", "Inactive", "Disabled", "Expired"]
+    const PaymentType = ["Currency", "Forint", "Credit"]
+
     let cardsToDisplay = [];
     cards.forEach(card => {
-        cardsToDisplay.push({id: card.id, cardNumber:card.cardNumber,
-            validity: card.validity,
-            state: card.state,
-            type: card.type.concat(card.currencyType != null? ` (${card.currencyType == "EUR" ? "€": "$"})`:"")})
+        console.log(card)
+        cardsToDisplay.push({id: card.cardID, cardNumber:card.cardNumber,
+            validity: `${card.valid? "Valid" : "Invalid"}`,
+            state: CardStatus[card.state],
+            type: PaymentType[card.cardType].concat(card.currencyType != null? ` (${card.currencyType == "EUR" ? "€": "$"})`:"")})
     });
 
 

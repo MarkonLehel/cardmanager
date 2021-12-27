@@ -47,7 +47,7 @@ const AddCardPage = () => {
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({userID: userID, cardNumber: data.get("cardNumber"),valid: `${cardStatus === "valid" ?true:false}`, state: cardStatus, cardType: cardType, currencyType: currencyValueType})
+            body: JSON.stringify({userID: userID, cardNumber: data.get("cardNumber"),valid: `${cardStatus === "active" ?true:false}`, state: cardStatus, cardType: cardType, currencyType: currencyValueType})
           }).then((resp) => handleCardRegisterResponse(resp));
 
         }

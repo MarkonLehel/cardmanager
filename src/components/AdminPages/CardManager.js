@@ -18,7 +18,6 @@ const PaymentType = ["Currency", "Forint", "Credit"]
 
     let cardsToDisplay = [];
     cards.forEach(card => {
-        console.log(card)
         cardsToDisplay.push({id: card.cardID, cardNumber:card.cardNumber,
             validity: `${card.valid? "Valid" : "Invalid"}`,
             state: CardStatus[card.state],
@@ -30,12 +29,10 @@ const PaymentType = ["Currency", "Forint", "Credit"]
         fetch(context.requestUrl + `/Users`)
         .then((result) => result.json())
         .then((data) =>  updateUsers(data))
-    })
+    },[])
 
     useEffect(async () =>{
-        console.log("Checking")
         if (userID !== "") {
-            console.log("Sending fetch")
         fetch(context.requestUrl + `/Cards/${userID}`)
         .then((result) => result.json())
         .then((data) => updateCards(data))}
