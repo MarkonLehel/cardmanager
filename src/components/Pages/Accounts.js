@@ -32,7 +32,7 @@ const Accounts = () => {
                 rows={accounts}
                 columns={columns}
                 pageSize={10}
-                rowsPerPageOptions={[5]}
+                rowsPerPageOptions={[5,10]}
             />
             </div>
         </div >

@@ -39,7 +39,7 @@ const Cards = () => {
                 rows={cardsToDisplay}
                 columns={columns}
                 pageSize={10}
-                rowsPerPageOptions={[5]}
+                rowsPerPageOptions={[5,10]}
             />
             </div>
         </div >

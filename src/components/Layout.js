@@ -3,23 +3,40 @@ import Cards from "./Pages/Cards";
 import NavBar from "./NavBar";
 import Profile from "./Pages/Profile";
 import Transactions from "./Pages/Transactions";
+import { DataContext } from '../components/DataContext';
+import { useContext } from "react";
 
 import {
     BrowserRouter as Router,
     Routes,
     Route
   } from "react-router-dom";
+import Users from "./AdminPages/Users";
+import CardManager from "./AdminPages/CardManager";
+import AddUserPage from "./AdminPages/AddUserPage";
 
-const Mainpage = ({user, setLoggedInUser}) => {
+
+const Mainpage = () => {
+let context = useContext(DataContext);
+
     return ( 
         <div className="layout-page">
             <NavBar/>
+            {context.loggedInUser.adminLogin? 
+            <Routes>
+            <Route exact path='/users' element={<Users />} />
+            <Route exact path='/addUser' element={<AddUserPage />} />
+            <Route exact path='/addCard' element={<AddCardPage />} />
+            <Route exact path='/cardManager' element={<CardManager />} />
+        </Routes>
+            :
                 <Routes>
                     <Route exact path='/accounts' element={<Accounts />} />
                     <Route exact path='/cards' element={<Cards />} />
                     <Route exact path='/transactions' element={<Transactions />} />
                     <Route exact path='/profile' element={<Profile />} />
                 </Routes>
+                }
         </div>
      );
 }
