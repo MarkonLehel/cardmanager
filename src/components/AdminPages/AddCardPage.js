@@ -18,7 +18,7 @@ const AddCardPage = () => {
     let {userID} = useParams()
     const handleCardRegisterResponse = (resp ) => {
         console.log(resp.status)
-      if (resp.status === 201) {
+      if (resp.status === 200) {
         setSuccess(true);
     }
     }

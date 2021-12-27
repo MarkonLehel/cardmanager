@@ -10,7 +10,7 @@ const Register = () => {
   let context = useContext(DataContext);
 
     const handleRegisterResponse = (resp,data ) => {
-      if (resp.status === 201) {
+      if (resp.status === 200) {
       context.setLoggedInUser({username: data.email, id: data.id, admin: false})
     }
     alert("This email is already in use!")
