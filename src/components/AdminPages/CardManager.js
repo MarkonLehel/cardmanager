@@ -1,15 +1,20 @@
+import { Button, InputLabel, MenuItem, Select } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
 import { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
 import { DataContext } from '../DataContext';
 
-const Cards = () => {
+const CardManager = ({activeUserId = null}) => {
     const [cards, updateCards] = useState([])
+    const [users, updateUsers] = useState([])
+    const [userID, setUserID] = useState(activeUserId !== null? activeUserId : "")
 
     let context = useContext(DataContext);
 
-    const CardStatus = ["Active", "Inactive", "Disabled", "Expired"]
-    const PaymentType = ["Currency", "Forint", "Credit"]
+const CardStatus = ["Active", "Inactive", "Disabled", "Expired"]
+const PaymentType = ["Currency", "Forint", "Credit"]
+
 
     let cardsToDisplay = [];
     cards.forEach(card => {
@@ -27,11 +32,19 @@ const Cards = () => {
     });
 
 
+    useEffect(async() => {
+        fetch(context.requestUrl + `/Users`)
+        .then((result) => result.json())
+        .then((data) =>  updateUsers(data))
+    },[])
+
     useEffect(async () =>{
-        fetch(context.requestUrl + `/Cards/${context.loggedInUser.id}`)
+        if (userID !== "") {
+        fetch(context.requestUrl + `/Cards/${userID}`)
         .then((result) => result.json())
         .then((data) => updateCards(data))}
-    , [])
+    }
+    , [userID])
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 70, type: 'number' },
@@ -43,8 +56,21 @@ const Cards = () => {
 
     return (
         <div className='card-listing'>
-            <h2>Your current cards:</h2>
-            <div style={{ height: 600, width: '100%' }}>
+            <h2>Cardmanager</h2>
+            <InputLabel id="user-input-label">User</InputLabel>
+            <Select
+                labelId="user-id-label"
+                id="user-id"
+                value={userID}
+                onChange={(a) => setUserID(a.target.value)}
+                sx={{ m: 1, minWidth: 120 }}
+            >
+                 <MenuItem value="">
+                <em>None</em>
+                </MenuItem>
+                {users.map((user) => (<MenuItem key={user.userID} value={user.userID}>{user.email}</MenuItem>))}
+            </Select>
+            <div style={{ height: 400, width: '100%' }}>
             <DataGrid
                 rows={cardsToDisplay}
                 columns={columns}
@@ -52,8 +78,9 @@ const Cards = () => {
                 rowsPerPageOptions={[5,10]}
             />
             </div>
+            <Button color="secondary" size="medium" variant="contained" component={NavLink} to={`/admin/addCard/${userID}`} sx={{ mt: 4, minWidth:200 }}>Add card</Button>
         </div >
     );
 }
 
-export default Cards;
+export default CardManager;

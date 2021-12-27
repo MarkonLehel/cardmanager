@@ -1,6 +1,4 @@
-
 import './App.css';
-import {useContext} from "react";
 import Login from './components/Login';
 import Register from './components/Register';
 import Layout from './components/Layout';
@@ -12,6 +10,9 @@ import {
   Navigate,
 } from "react-router-dom";
 import { DataContext } from './components/DataContext';
+import {useContext} from "react";
+
+import Users from './components/AdminPages/Users';
 
 
 
@@ -30,11 +31,18 @@ let context = useContext(DataContext);
             <Route exact path="/register" element={<Register/>} />
             <Route path="*" element={<Navigate to="/login" />} />
           </Routes> :
+
+          context.loggedInUser.adminLogin? 
+          <Routes>
+            <Route path="/admin/*" element={<Layout/>}/>
+            <Route path="*" element={<Navigate to="/admin/users"/>} /> 
+          </Routes>
+          :
           <Routes>
             <Route path="/home/*" element={<Layout/>}/>
-            <Route path="/admin/users" element={<Layout/>}/>
+            <Route path="/admin/users" element={<Users/>}/>
             <Route path="/admin/cards" element={<Layout/>}/>
-            <Route path="*" element={<Navigate to="/home/profile" />} />
+            <Route path="*" element={<Navigate to="/home/profile"/>} />
           </Routes>}
         </Router>
     </div>
