@@ -1,9 +1,12 @@
 import { DataGrid } from '@mui/x-data-grid';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useContext } from 'react';
+import { DataContext } from '../DataContext';
 
 const Cards = () => {
-    const [cards, updateCards] = useState([{ id: 1, cardNumber:1234567891234567, validity: "Valid", state: "Active", type: "Currency", currencyType:"EUR" },])
+    const [cards, updateCards] = useState([])
 
+    let context = useContext(DataContext);
 
     let cardsToDisplay = [];
     cards.forEach(card => {
@@ -14,6 +17,11 @@ const Cards = () => {
     });
 
 
+    useEffect(async () =>{
+        fetch(context.requestUrl + `/Cards/${context.loggedInUser.id}`)
+        .then((result) => result.json())
+        .then((data) => updateCards(data))}
+    , [])
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 70, type: 'number' },
