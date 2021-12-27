@@ -2,7 +2,6 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import { NavLink } from 'react-router-dom';
 import { DataContext } from './DataContext';
 import { useContext } from 'react';
@@ -12,7 +11,7 @@ const Register = () => {
 
     const handleRegisterResponse = (resp,data ) => {
       if (resp.status === 201) {
-      context.setLoggedInUser({username: data.email, id: data.id})
+      context.setLoggedInUser({username: data.email, id: data.id, admin: false})
     }
       console.log(resp.status)
     }

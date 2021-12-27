@@ -7,6 +7,8 @@ import IconButton from '@mui/material/IconButton';
 import { Link, NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { DataContext } from './DataContext';
+import ShieldIcon from '@mui/icons-material/Shield';
+
 
 const NavBar = () => {
     let context = useContext(DataContext);
@@ -16,11 +18,20 @@ const NavBar = () => {
             <AppBar position="sticky" elevation={1}>
                 <Toolbar>
                     <Typography variant="h5" component="div" sx={{ mr: 6 }}>CardManager</Typography>
+                    {context.loggedInUser.adminLogin? 
+                    <div>
+                    <Button color="secondary" size="medium" variant="contained" component={Link} to="/admin/users" sx={{ mr: 3 }}>Accounts</Button>
+                    <Button color="secondary" size="medium" variant="contained" component={Link} to="/admin/cards" sx={{ mr: 3 }}>Cards</Button>
+                    </div>  
+                    : 
+                    <div>
                     <Button color="secondary" size="medium" variant="contained" component={Link} to="/home/accounts" sx={{ mr: 3 }}>Accounts</Button>
                     <Button color="secondary" size="medium" variant="contained" component={Link} to="/home/cards" sx={{ mr: 3 }}>Cards</Button>
                     <Button color="secondary" size="medium" variant="contained" component={Link} to="/home/transactions" sx={{ mr: 3 }}>Transactions</Button>
                     <Button color="secondary" size="medium" variant="contained" component={Link} to="/home/profile" sx={{ mr: 3 }}>Profile</Button>
-                    <Typography noWrap={true} sx={{ marginLeft: "auto"}}>Logged in as {context.loggedInUser.username}</Typography>
+                    </div>}
+                    
+                    <Typography noWrap={true} sx={{ marginLeft: "auto"}}>Logged in as {context.loggedInUser.username} {context.loggedInUser.adminLogin?<ShieldIcon color="warning"/>:""}</Typography>
                     <Tooltip title="Logout" arrow>
                         <IconButton onClick={ () => {context.setLoggedInUser(null); console.log("Set user to null")}} size="medium" color="inherit" sx={{ ml: 1 }}>
                                 <LogoutIcon />

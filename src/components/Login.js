@@ -5,16 +5,16 @@ import TextField from '@mui/material/TextField';
 import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { DataContext } from './DataContext';
+import ShieldIcon from '@mui/icons-material/Shield';
 
 
-
-const Login = () => {
+const Login = ({adminLogin}) => {
 
   let loginEmail;
   let context = useContext(DataContext);
     const handleLoginResponse = (resp, returnData) => {
       if(resp.status == 200){
-        context.setLoggedInUser({username: loginEmail, id: returnData})
+        context.setLoggedInUser({username: loginEmail, id: returnData, adminLogin: adminLogin})
       } else if (resp.status == 400) {
 
       } else {
@@ -31,7 +31,7 @@ const Login = () => {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({email: data.get('email'), password: data.get('password')})
+          body: JSON.stringify({email: data.get('email'), password: data.get('password'), adminLogin: adminLogin})
         }).then((resp) => resp.json()
         .then( (data) => handleLoginResponse(resp, data)));
       };
@@ -73,7 +73,7 @@ const Login = () => {
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
-                    > Sign In </Button>
+                    > Sign In {adminLogin? <ShieldIcon sx={{ ml: 1 }}/>: ""}</Button>
                     <NavLink to="/register">
                          {"Don't have an account? Sign Up"}
                     </NavLink>
