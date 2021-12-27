@@ -25,13 +25,16 @@ let context = useContext(DataContext);
         <Router>
           {context.loggedInUser == null?
           <Routes>
-            <Route exact path="/login" element={<Login/>} />
+            <Route exact path="/login" element={<Login adminLogin={false}/>} />
+            <Route exact path="/admin" element={<Login adminLogin={true}/>} />
             <Route exact path="/register" element={<Register/>} />
             <Route path="*" element={<Navigate to="/login" />} />
           </Routes> :
           <Routes>
             <Route path="/home/*" element={<Layout/>}/>
-            <Route path="*" element={<Navigate to="/home" />} />
+            <Route path="/admin/users" element={<Layout/>}/>
+            <Route path="/admin/cards" element={<Layout/>}/>
+            <Route path="*" element={<Navigate to="/home/profile" />} />
           </Routes>}
         </Router>
     </div>

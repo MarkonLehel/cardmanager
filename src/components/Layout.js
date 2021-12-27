@@ -13,7 +13,7 @@ import {
 const Mainpage = ({user, setLoggedInUser}) => {
     return ( 
         <div className="layout-page">
-            <NavBar user={user} setLoggedInUser={setLoggedInUser}/>
+            <NavBar/>
                 <Routes>
                     <Route exact path='/accounts' element={<Accounts />} />
                     <Route exact path='/cards' element={<Cards />} />

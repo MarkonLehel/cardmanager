@@ -2,18 +2,42 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import { NavLink } from 'react-router-dom';
+import { DataContext } from './DataContext';
+import { useContext } from 'react';
 
-const Register = (props) => {
+const Register = () => {
+  let context = useContext(DataContext);
+
+    const handleRegisterResponse = (resp,data ) => {
+      if (resp.status === 201) {
+      context.setLoggedInUser({username: data.email, id: data.id, admin: false})
+    }
+      console.log(resp.status)
+    }
 
     const handleRegister = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-          email: data.get('email'),
-          password: data.get('password'),
-        });
+
+        if(data.get('password') !== data.get("retype-password")) {
+
+          //Popup modal
+          return;
+        } else {
+          fetch(context.requestUrl + "/Users", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({firstName: data.get("firstName"), lastName: data.get("lastName"), email: data.get('email'), hashedPassword: data.get('password')})
+          }).then((resp) => resp.json().then( (data) => handleRegisterResponse(resp ,data)));
+
+        }
+
+
+
+      
       };
 
 
@@ -21,13 +45,31 @@ const Register = (props) => {
         <div className="login-page">
 
             <Container sx={{
-            marginTop: 20,
+            marginTop: 10,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}>
               <h1 className='signin-text'>Registration</h1>
                 <Box component="form" onSubmit={handleRegister} noValidate sx={{ mt: 1 }}>
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="first-name"
+                    label="First Name"
+                    name="firstName"
+                    autoFocus
+                    />
+                    <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="last-name"
+                    label="Last Name"
+                    name="lastName"
+                    autoFocus
+                    />
                     <TextField
                     margin="normal"
                     required
@@ -47,6 +89,15 @@ const Register = (props) => {
                     type="password"
                     id="password"
                     autoComplete="current-password"
+                    />
+                    <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="retype-password"
+                    label="Retype password"
+                    type="password"
+                    id="retype-password"
                     />
                     <Button
                     type="submit"
