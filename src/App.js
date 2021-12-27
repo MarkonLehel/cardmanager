@@ -34,7 +34,7 @@ let context = useContext(DataContext);
             <Route path="/home/*" element={<Layout/>}/>
             <Route path="/admin/users" element={<Layout/>}/>
             <Route path="/admin/cards" element={<Layout/>}/>
-            <Route path="*" element={<Navigate to="/home/profile" />} />
+            <Route path="*" element={context.adminLogin? <Navigate to="/admin/users" />:<Navigate to="/home/profile"/>} />
           </Routes>}
         </Router>
     </div>
